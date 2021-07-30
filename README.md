@@ -24,4 +24,4 @@ Write the code for a single AWS Lambda function in (TypeScript, Java or Python) 
   * You do **NOT** have to create a "live" demo (i.e. you don't need to deploy the code to a real AWS Lambda function, and you don't need to configure a real database)
   * You do **NOT** need to provide any "infrastructure as code" implementation.
 
-**Bonus:** Leverage dependency injection
+* **Bonus:** Leverage dependency injection
