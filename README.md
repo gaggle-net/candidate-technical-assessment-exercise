@@ -16,5 +16,5 @@ Write the code for a Web Service that provides two possible operations for a cli
 * Search for contacts by name
   * **_Example_**: If the database contains the full name of "Bruce Wayne", then it should be reasonable for the function to return this result given any of the following search strings: "bru", "Bruce", "Wayne", "Bruce Wayne", etc.
 * Both the input and output of the operations should be formatted in JSON.
-* Unit tests for the provided code is written
+* Unit tests for the provided code are written
 * **Bonus:** Leverage dependency injection
