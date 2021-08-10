@@ -19,6 +19,3 @@ Write the code for a Web Service that provides two possible operations for a cli
 * Unit tests for the provided code are written
 * **Bonus:** Leverage dependency injection
 
-
-# Notes & Comments
-Adding this note.
