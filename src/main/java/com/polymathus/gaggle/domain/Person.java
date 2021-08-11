@@ -1,10 +1,10 @@
 package com.polymathus.gaggle.domain;
 
 public class Person {
+
     private String firstName = "";
     private String lastName = "";
     private String fullName = "";
-
 
     /**
      *  Public Constructor
@@ -14,10 +14,7 @@ public class Person {
     }
 
 //    public Person(String firstName, String lastName){
-//
-//    }
-//
-
+//   }
 
 
     public String getFirstName() {

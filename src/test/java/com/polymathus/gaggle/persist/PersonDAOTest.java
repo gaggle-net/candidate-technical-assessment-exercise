@@ -4,7 +4,9 @@ import com.polymathus.gaggle.domain.Person;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class PersonDAOTest {
@@ -30,11 +32,27 @@ class PersonDAOTest {
      */
 
     @Test
-    public void testDataExistsInPersonTable() throws Exception {
+    public void testDatabaseConnectionAlive() {
+        //not implemented yet
+        //need a better design for data layer
+    }
 
+    @Test
+    public void testDataExistsInPersonTable() {
         List<Person> personResults = PersonDAO.findAll();
         assertNotEquals(0, personResults.size());
     }
 
+    @Test
+    public void testFindByPrimaryKey() {
+        Person personActual = PersonDAO.findByPrimaryKey(new Integer("700"));
+        assertEquals("Bruce Wayne", personActual.getFullName());
+    }
 
+    @Test
+    public void testFindByName() {
+        Map<Integer, Person> personResults = PersonDAO.findByName("Bruce Wayne");
+        Person personActual = personResults.get(new Integer("700"));
+        assertEquals("Bruce Wayne", personActual.getFullName());
+    }
 }
