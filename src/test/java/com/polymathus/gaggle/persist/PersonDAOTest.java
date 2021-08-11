@@ -3,11 +3,11 @@ package com.polymathus.gaggle.persist;
 import com.polymathus.gaggle.domain.Person;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class PersonDAOTest {
 
@@ -35,6 +35,8 @@ class PersonDAOTest {
     public void testDatabaseConnectionAlive() {
         //not implemented yet
         //need a better design for data layer
+        Connection connection = Database.getConnection();
+        assertNotNull(connection);
     }
 
     @Test

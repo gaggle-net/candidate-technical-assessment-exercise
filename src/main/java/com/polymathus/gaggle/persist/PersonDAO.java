@@ -10,104 +10,121 @@ import java.util.logging.Logger;
 
 import com.polymathus.gaggle.domain.Person;
 
-
 /**
- *
+ * Interacts with the database for all data in the Person domain.
  */
 public class PersonDAO {
-    /*
-    This is horrible but temporary...
-     */
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/gaggledev?allowPublicKeyRetrieval=true&useSSL=false";
-    public static final String DB_USER_NAME = "gaggle-dev";
-    public static final String DB_PASSWORD = "Gaggle2021!";
 
-    /*
-    this isn't much better...but
-     */
     private static final String TABLE_NAME = "test_gaggle";
     private static final String PRIMARY_KEY_FIELDNAME = "person_id";
     private static final String FULL_NAME_FIELDNAME = "full_name";          //replace all above with enum?
 
 
-
-
-    public static Person findByPrimaryKey(Integer primaryKey){
+    /**
+     * Find a Person record by Primary Key.
+     *
+     * @param primaryKey the Primary Key of the person record you seek.
+     * @return a Person loaded up with the associated data.
+     */
+    public static Person findByPrimaryKey(Integer primaryKey) {
 
         final Person person = new Person();
         String query = prepareSearchByPrimaryKey(primaryKey);
 
-        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER_NAME, DB_PASSWORD);
-             Statement statement = connection.createStatement();
-             ResultSet resultset = statement.executeQuery(query)) {
+        Connection connection = Database.getConnection();               //@todo: nooooo...don't dothis every time
 
-            while (resultset.next()){
-                person.setFirstName(resultset.getString("first_name"));
-                person.setLastName(resultset.getString("last_name"));
-                person.setFullName(resultset.getString("full_name"));
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultset = statement.executeQuery(query);
+
+                while (resultset.next()) {
+                    person.setFirstName(resultset.getString("first_name"));
+                    person.setLastName(resultset.getString("last_name"));
+                    person.setFullName(resultset.getString("full_name"));
+                }
+            } catch (SQLException exception){
+                Logger logger = Logger.getLogger(PersonDAO.class.getName());
+                logger.log(Level.SEVERE, exception.getMessage(), exception);
             }
-        } catch (SQLException ex) {                                                     //make this better--specific Exception
-
-            Logger logger = Logger.getLogger(PersonDAO.class.getName());
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
+
 
         return person;
     }
 
+    /**
+     * Find a Person record by name or name fragment.
+     * Note that more results can be returned as the input name fragment gets less specific.
+     *
+     * @param name the name--or portion of the name--of the person you seek.
+     * @return a Map where values hold a Person and the key contains its corresponding primary key (as an Integer).
+     */
     public static Map<Integer, Person> findByName(String name){
 
         final Map<Integer, Person> persons = new HashMap<Integer, Person>();
         String query = prepareSearchByName(name);
 
-        try (Connection con = DriverManager.getConnection(DB_URL, DB_USER_NAME, DB_PASSWORD);
-             Statement statement = con.createStatement();
-             ResultSet resultset = statement.executeQuery(query)) {
+        Connection connection = Database.getConnection();
 
-            while (resultset.next()){
-                final Person person = new Person();
-                person.setFirstName(resultset.getString("first_name"));
-                person.setLastName(resultset.getString("last_name"));
-                person.setFullName(resultset.getString("full_name"));
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultset = statement.executeQuery(query);
 
-                persons.put(new Integer(resultset.getString("person_id")), person);
+                while (resultset.next()) {
+                    final Person person = new Person();
+                    person.setFirstName(resultset.getString("first_name"));
+                    person.setLastName(resultset.getString("last_name"));
+                    person.setFullName(resultset.getString("full_name"));
+
+                    persons.put(new Integer(resultset.getString("person_id")), person);
+                }
+            } catch (SQLException exception){
+                Logger logger = Logger.getLogger(PersonDAO.class.getName());
+                logger.log(Level.SEVERE, exception.getMessage(), exception);
             }
-
-            System.out.println("loaded up "+persons.size()+ " people" );
-
-        } catch (SQLException ex) {                                                     //make this better--specific Exception
-
-            Logger logger = Logger.getLogger(PersonDAO.class.getName());
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
+
+        System.out.println("loaded up "+persons.size()+ " people" );
 
         return persons;
     }
 
+    /**
+     * Select all of the Person records available.
+     *
+     * As of version 1.0, no business logic layer uses this, but it is used in unit test case(s).
+     *
+     * @return a List of Person objects.
+     */
     public static List<Person> findAll(){
 
-        final List<Person> persons = new ArrayList<Person>();       //make this typsafe with <Person> DONE!
+        final List<Person> persons = new ArrayList<Person>();
+        Connection connection = Database.getConnection();
 
-        try (Connection con = DriverManager.getConnection(DB_URL, DB_USER_NAME, DB_PASSWORD);
-             Statement statement = con.createStatement();
-             ResultSet resultset = statement.executeQuery(getSelectAllSQL().toString())) {
+        if (connection != null) {
+            try {
+                Statement statement = connection.createStatement();
+                ResultSet resultset = statement.executeQuery(getSelectAllSQL().toString());
 
-            while (resultset.next()){
-                final Person person = new Person();
-                person.setFirstName(resultset.getString("first_name"));
-                person.setLastName(resultset.getString("last_name"));
-                person.setFullName(resultset.getString("full_name"));
+                while (resultset.next()){
+                    final Person person = new Person();
+                    person.setFirstName(resultset.getString("first_name"));
+                    person.setLastName(resultset.getString("last_name"));
+                    person.setFullName(resultset.getString("full_name"));
 
-                persons.add(person);
+                    persons.add(person);
+                }
+
+                System.out.println("loaded up "+persons.size()+ " people" );
+
+            } catch (SQLException exception){
+                Logger logger = Logger.getLogger(PersonDAO.class.getName());
+                logger.log(Level.SEVERE, exception.getMessage(), exception);
             }
-
-            System.out.println("loaded up "+persons.size()+ " people" );
-
-        } catch (SQLException ex) {                                                     //make this better--specific Exception
-
-            Logger logger = Logger.getLogger(PersonDAO.class.getName());
-            logger.log(Level.SEVERE, ex.getMessage(), ex);
         }
+
 
         return persons;
     }
@@ -115,7 +132,8 @@ public class PersonDAO {
 
     /**
      * Builds the base SQL query without a WHERE clause.
-     * @return
+     *
+     * @return a StringBuilder with a "SELECT * FROM 'table_name' " format value.
      */
     private static StringBuilder getSelectAllSQL(){
 
@@ -129,6 +147,12 @@ public class PersonDAO {
     }
 
 
+    /**
+     * Prepare the WHERE clause for a Search by Primary Key.
+     *
+     * @param primaryKey the Primary Key of the person record you seek.
+     * @return a StringBuilder with "WHERE 'primary_key' = 'primaryKey'" format value.
+     */
     private static String prepareSearchByPrimaryKey(Integer primaryKey){
 
         System.out.println("preparing search by PK in the DAO");
@@ -138,6 +162,13 @@ public class PersonDAO {
         return statement.toString();
     }
 
+    /**
+     * Prepare the WHERE clause for a Search by Name.
+     * The REGEXP operator is used so that records can still be found evenif only a portion of the name is entered.
+     *
+     * @param name the name--or portion of the name--of the person you seek.
+     * @return a StringBuilder with "WHERE 'full_name' REGEXP 'name'" format value.
+     */
     private static String prepareSearchByName(String name){
 
         StringBuilder statement = getSelectAllSQL();

@@ -19,17 +19,25 @@ public class PersonSearch {
     private JSONObject searchResults = new JSONObject();
 
 
+    /**
+     * The specific implementation to search for a Person.
+     *
+     * @param input a JSONObject containing the search criterion.
+     * @return a JSONObject holding the results of the search.
+     */
     public JSONObject search(JSONObject input){
 
-        JSONObject output = new JSONObject();
 
-        String userInput = input.get("searchInput").toString();           //gawd this feels awful...make it better
+        /*
+        @todo: this core search() takes a JSONObject and returns a JSONObject...
+          better to return String of JSON instead? or handle conversion at client interface?
+         */
+
+        JSONObject output = new JSONObject();
+        String userInput = input.get("searchInput").toString();           //gawd this is awful...make it better
 
         System.out.println("yo! performing search! Going to  look for ----> "+userInput);
 
-
-
-        //good ol' regEx to the rescue again, love it
         if (!userInput.isEmpty() && userInput.matches(REGEX_PATTERN_IS_DIGITS)){
             System.out.println("found a number!");
 

@@ -16,7 +16,6 @@ public class Person {
 //    public Person(String firstName, String lastName){
 //   }
 
-
     public String getFirstName() {
         return firstName;
     }
@@ -37,5 +36,4 @@ public class Person {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
-
 }

@@ -8,10 +8,9 @@ import org.json.simple.JSONObject;
  */
 public class Main {
 
-
     public static void main(String[] args) {
 
-        JSONObject formInputAsJson = getSampleUserInputAsJson("Bruce Wagnere");
+        JSONObject formInputAsJson = getSampleUserInputAsJson("Bru");     //use a Scanner and get this input dynamically at runtime
 
         PersonSearch personSearchService = new PersonSearch();
         JSONObject output = personSearchService.search(formInputAsJson);
