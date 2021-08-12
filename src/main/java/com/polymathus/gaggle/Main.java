@@ -12,8 +12,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        //JSONObject formInputAsJson = getSampleUserInputAsJson("Bru");     //use a Scanner and get this input dynamically at runtime
-
         System.out.println("Welcome to Your Search !");
         System.out.println("Please enter a name, part of a name or primary key of the record you seek.");
         System.out.print("What say you? ---> ");

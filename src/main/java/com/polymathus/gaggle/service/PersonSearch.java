@@ -14,7 +14,7 @@ import com.polymathus.gaggle.persist.PersonDAO;
 public class PersonSearch {
 
     private static final String REGEX_PATTERN_IS_DIGITS = "^\\d+$";
-    private static final String REGEX_PATTERN_IS_LETTERS_AND_SPACES = "^[a-zA-Z\\s]*$";     //starting to look like this wants to be an enum :)
+    private static final String REGEX_PATTERN_IS_LETTERS_AND_SPACES = "^[a-zA-Z\\s]*$";     //need better regex to support our pals Jòsé (Cuervo) and Leo (D'Vinci) ; starting to look like this wants to be an enum :)
 
     private JSONObject searchResults = new JSONObject();
 

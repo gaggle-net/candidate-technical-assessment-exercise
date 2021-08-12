@@ -15,9 +15,18 @@ import com.polymathus.gaggle.domain.Person;
  */
 public class PersonDAO {
 
-    private static final String TABLE_NAME = "test_gaggle";
+    private static final String TABLE_NAME = "person";
     private static final String PRIMARY_KEY_FIELDNAME = "person_id";
-    private static final String FULL_NAME_FIELDNAME = "full_name";          //replace all above with enum?
+    private static final String FULL_NAME_FIELDNAME = "full_name";
+    /*  replace all above with enum?
+        also, with this approach, DAO 'knows' about table need transport? getting  bloated... but better design
+     */
+
+
+
+//    private static final Database database = new SQLiteDatabase();
+    private static final Database database = new MySQLDatabase();
+    private static final Connection connection = database.getConnection();
 
 
     /**
@@ -31,14 +40,13 @@ public class PersonDAO {
         final Person person = new Person();
         String query = prepareSearchByPrimaryKey(primaryKey);
 
-        Connection connection = Database.getConnection();               //@todo: nooooo...don't dothis every time
-
         if (connection != null) {
             try {
                 Statement statement = connection.createStatement();
                 ResultSet resultset = statement.executeQuery(query);
 
                 while (resultset.next()) {
+                    System.out.println("hiya");
                     person.setFirstName(resultset.getString("first_name"));
                     person.setLastName(resultset.getString("last_name"));
                     person.setFullName(resultset.getString("full_name"));
@@ -48,7 +56,6 @@ public class PersonDAO {
                 logger.log(Level.SEVERE, exception.getMessage(), exception);
             }
         }
-
 
         return person;
     }
@@ -64,8 +71,6 @@ public class PersonDAO {
 
         final Map<Integer, Person> persons = new HashMap<Integer, Person>();
         String query = prepareSearchByName(name);
-
-        Connection connection = Database.getConnection();
 
         if (connection != null) {
             try {
@@ -101,7 +106,6 @@ public class PersonDAO {
     public static List<Person> findAll(){
 
         final List<Person> persons = new ArrayList<Person>();
-        Connection connection = Database.getConnection();
 
         if (connection != null) {
             try {
@@ -173,7 +177,8 @@ public class PersonDAO {
 
         StringBuilder statement = getSelectAllSQL();
         statement.append("WHERE "+ FULL_NAME_FIELDNAME + " ");
-        statement.append("REGEXP " + "'" + name + "'");
+        statement.append("LIKE " + "'%" + name + "%'");
+//        statement.append("REGEXP " + "'" + name + "'");       //@todo: drats, REGEXP isn't supported in SQLite...hmmm, how to refactor then for different statements..ideally stored procedures; out of scope for this exercise?....
 
         return statement.toString();
     }

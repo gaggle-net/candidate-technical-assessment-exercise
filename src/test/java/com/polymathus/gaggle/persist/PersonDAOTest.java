@@ -32,10 +32,9 @@ class PersonDAOTest {
      */
 
     @Test
-    public void testDatabaseConnectionAlive() {
-        //not implemented yet
-        //need a better design for data layer
-        Connection connection = Database.getConnection();
+    public void testMySQLDatabaseConnectionAlive() {
+        Database database = new MySQLDatabase();
+        Connection connection = database.getConnection();
         assertNotNull(connection);
     }
 
@@ -52,9 +51,30 @@ class PersonDAOTest {
     }
 
     @Test
-    public void testFindByName() {
+    public void testFindByNameWithFullName() {
         Map<Integer, Person> personResults = PersonDAO.findByName("Bruce Wayne");
         Person personActual = personResults.get(new Integer("700"));
         assertEquals("Bruce Wayne", personActual.getFullName());
+    }
+
+    @Test
+    public void testFindByNameWithNameFragment() {
+        Map<Integer, Person> personResults = PersonDAO.findByName("Bru");
+        Person personActual = personResults.get(new Integer("700"));
+        assertEquals("Bruce Wayne", personActual.getFullName());
+    }
+
+    @Test
+    public void testFindByNameWithNameContainingAccents() {
+        Map<Integer, Person> personResults = PersonDAO.findByName("Jòsé Cuervo");
+        Person personActual = personResults.get(new Integer("1100"));
+        assertEquals("Jòsé Cuervo", personActual.getFullName());        //@todo: interesting, this condition fails at runtime
+    }
+
+    @Test
+    public void testFindByNameWithNameContainingApostrophes() {
+        Map<Integer, Person> personResults = PersonDAO.findByName("Leonardo D'Vinci");
+        Person personActual = personResults.get(new Integer("1000"));
+        assertEquals("Leonardo D'Vinci", personActual.getFullName());
     }
 }
