@@ -46,7 +46,6 @@ public class PersonDAO {
                 ResultSet resultset = statement.executeQuery(query);
 
                 while (resultset.next()) {
-                    System.out.println("hiya");
                     person.setFirstName(resultset.getString("first_name"));
                     person.setLastName(resultset.getString("last_name"));
                     person.setFullName(resultset.getString("full_name"));

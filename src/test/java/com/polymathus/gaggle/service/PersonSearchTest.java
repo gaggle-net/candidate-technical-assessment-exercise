@@ -29,7 +29,7 @@ class PersonSearchTest {
     public void testOutputIsWellFormedJsonForFindByPrimaryKey() {
 
         JSONObject userSearchInput = new JSONObject();
-        userSearchInput.put("searchInput", "700");
+        userSearchInput.put("personSearch", "700");
 
         JSONObject expectedOutput = new JSONObject();
         expectedOutput.put("700","Bruce Wayne");
@@ -42,7 +42,7 @@ class PersonSearchTest {
     public void testOutputIsWellFormedJsonForFindByName() {
 
         JSONObject userSearchInput = new JSONObject();
-        userSearchInput.put("searchInput", "Bruce Wayne");
+        userSearchInput.put("personSearch", "Bruce Wayne");
 
         JSONObject expectedOutput = new JSONObject();
         expectedOutput.put("700","Bruce Wayne");
@@ -55,7 +55,7 @@ class PersonSearchTest {
     public void testSearchHandlesEmptyStringInput() {
 
         JSONObject userSearchInput = new JSONObject();
-        userSearchInput.put("searchInput", "");
+        userSearchInput.put("personSearch", "");
 
         JSONObject expectedOutput = new JSONObject();
         expectedOutput.put("000","Invalid Input Received");
@@ -68,7 +68,7 @@ class PersonSearchTest {
     public void testSearchHandlesInvalidCharacters() {
 
         JSONObject userSearchInput = new JSONObject();
-        userSearchInput.put("searchInput", "!@%$#");
+        userSearchInput.put("personSearch", "!@%$#");
 
         JSONObject expectedOutput = new JSONObject();
         expectedOutput.put("000","Invalid Input Received");

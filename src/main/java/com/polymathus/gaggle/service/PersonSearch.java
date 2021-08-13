@@ -11,7 +11,7 @@ import com.polymathus.gaggle.persist.PersonDAO;
 /**
  *
  */
-public class PersonSearch {
+public class PersonSearch implements Search {
 
     private static final String REGEX_PATTERN_IS_DIGITS = "^\\d+$";
     private static final String REGEX_PATTERN_IS_LETTERS_AND_SPACES = "^[a-zA-Z\\s]*$";     //need better regex to support our pals Jòsé (Cuervo) and Leo (D'Vinci) ; starting to look like this wants to be an enum :)
@@ -19,13 +19,18 @@ public class PersonSearch {
     private JSONObject searchResults = new JSONObject();
 
 
+
+
+
+
     /**
      * The specific implementation to search for a Person.
      *
-     * @param input a JSONObject containing the search criterion.
+     * @param searchCriteria a JSONObject containing the search criterion.
      * @return a JSONObject holding the results of the search.
      */
-    public JSONObject search(JSONObject input){
+    @Override
+    public JSONObject search(JSONObject searchCriteria){
 
 
         /*
@@ -34,7 +39,7 @@ public class PersonSearch {
          */
 
         JSONObject output = new JSONObject();
-        String userInput = input.get("searchInput").toString();           //gawd this is awful...make it better
+        String userInput = searchCriteria.get("personSearch").toString();           //gawd this is awful...make it better
 
         System.out.println("yo! performing search! Going to  look for ----> "+userInput);
 
