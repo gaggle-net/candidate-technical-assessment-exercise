@@ -28,7 +28,7 @@ public class Main {
 //        formInputJson.put("personSearch", userEntry);
 
         JSONObject formInputJson = new JSONObject();
-        formInputJson.put("personSearch", "1000");                           //@todo: all this is temporary till we craft the service
+        formInputJson.put("personSearch", "to");                           //@todo: all this is temporary till we craft the service
 
         Search personSearchService = new PersonSearch();
         JSONObject output = personSearchService.search(formInputJson);

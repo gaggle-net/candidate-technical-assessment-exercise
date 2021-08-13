@@ -46,7 +46,8 @@ class PersonDAOTest {
 
     @Test
     public void testFindByPrimaryKey() {
-        Person personActual = PersonDAO.findByPrimaryKey(new Integer("700"));
+        Map<Integer, Person> personResults = PersonDAO.findByPrimaryKey("700");
+        Person personActual = personResults.get(new Integer("700"));
         assertEquals("Bruce Wayne", personActual.getFullName());
     }
 

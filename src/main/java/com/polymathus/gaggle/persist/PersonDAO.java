@@ -23,8 +23,8 @@ public class PersonDAO {
      */
 
 
-    //    private static final Database database = new SQLiteDatabase();
-    private static final Database database = new MySQLDatabase();
+    private static final Database database = new SQLiteDatabase();
+//    private static final Database database = new MySQLDatabase();
     private static final Connection connection = database.getConnection();
 
 
@@ -34,9 +34,9 @@ public class PersonDAO {
      * @param primaryKey the Primary Key of the person record you seek.
      * @return a Person loaded up with the associated data.
      */
-    public static Person findByPrimaryKey(Integer primaryKey) {
+    public static Map<Integer, Person> findByPrimaryKey(String primaryKey) {             //refactor to return a Map so PersonSearch can handle same return types.  better? or worse? PersonDataTransport would fix...
 
-        final Person person = new Person();
+        final Map<Integer, Person> persons = new HashMap<Integer, Person>();
         String query = prepareSearchByPrimaryKey(primaryKey);
 
         if (connection != null) {
@@ -45,16 +45,19 @@ public class PersonDAO {
                 ResultSet resultset = statement.executeQuery(query);
 
                 while (resultset.next()) {
+                    final Person person = new Person();
                     person.setFirstName(resultset.getString("first_name"));
                     person.setLastName(resultset.getString("last_name"));
                     person.setFullName(resultset.getString("full_name"));
+
+                    persons.put(new Integer(resultset.getString("person_id")), person);
                 }
             } catch (SQLException exception) {
                 LOGGER.log(Level.ERROR, exception.getMessage(), exception);
             }
         }
 
-        return person;
+        return persons;
     }
 
     /**
@@ -152,11 +155,11 @@ public class PersonDAO {
      * @param primaryKey the Primary Key of the person record you seek.
      * @return a StringBuilder with "WHERE 'primary_key' = 'primaryKey'" format value.
      */
-    private static String prepareSearchByPrimaryKey(Integer primaryKey) {
+    private static String prepareSearchByPrimaryKey(String primaryKey) {
 
         LOGGER.log(Level.TRACE, "preparing search by PK in the DAO");
         StringBuilder statement = getSelectAllSQL();
-        statement.append("WHERE " + PRIMARY_KEY_FIELDNAME + " = " + primaryKey.toString());
+        statement.append("WHERE " + PRIMARY_KEY_FIELDNAME + " = " + primaryKey);
 
         return statement.toString();
     }

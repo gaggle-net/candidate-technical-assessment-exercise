@@ -36,42 +36,47 @@ public class PersonSearch implements Search {
 
         JSONObject output = new JSONObject();
         String userInput = searchCriteria.get("personSearch").toString();           //gawd this is awful...make it better
-
         LOGGER.log(Level.TRACE, "yo! performing search! Going to  look for ----> " + userInput);
-
 
         if (!userInput.isEmpty() && userInput.matches(REGEX_PATTERN_IS_DIGITS)) {
             LOGGER.log(Level.TRACE, "found a number!");
 
+            Map<Integer, Person> searchResults = PersonDAO.findByPrimaryKey(userInput);
+            output = convertResultsToJson(searchResults);
 
-            Integer primaryKey = new Integer(userInput);
-            Person person = PersonDAO.findByPrimaryKey(primaryKey);
-
-            LOGGER.log(Level.TRACE, "We just found " + person.getFullName() + " by Primary Key!!!");
-
-            output.put(primaryKey, person.getFullName());
-
-        } else if (!userInput.isEmpty() && userInput.matches(REGEX_PATTERN_IS_LETTERS_AND_SPACES)) {                      //fancy this up with a better regEx for valid name strings (including apostrophes and all that with final else that stops because of malicious input
+        } else if (!userInput.isEmpty() && userInput.matches(REGEX_PATTERN_IS_LETTERS_AND_SPACES)) {
             LOGGER.log(Level.TRACE, "Found a name or name fragment");
 
             Map<Integer, Person> searchResults = PersonDAO.findByName(userInput);
-            LOGGER.log(Level.TRACE, "I found " + searchResults.size() + " people with that search");
-
-            Map<Integer, String> returnResults = new HashMap<Integer, String>();
-
-            for (Map.Entry<Integer, Person> entry : searchResults.entrySet()) {                 //oof I gotta learn this one...just copied it for now, which i haven't done much at all so this is promising
-                LOGGER.log(Level.TRACE, "key:  " + entry.getKey() + ",   fullName:  " + entry.getValue().getFullName());
-                returnResults.put(entry.getKey(), entry.getValue().getFullName());
-            }
-
-            output.putAll(returnResults);
+            output = convertResultsToJson(searchResults);
 
         } else {
 
-            output.put("000", "Invalid Input Received");
+            output.put("personSearch", "Invalid Input Received");
         }
 
         return output;
+    }
 
+
+    /**
+     * Helper method to bundle up the search results map into JSON output.
+     *
+     * @param searchResults a Map<Integer, Person> of records returned from the Person table, keyed on Primary Key.
+     * @return the search results in JSON format
+     */
+    private JSONObject convertResultsToJson(Map<Integer, Person> searchResults) {
+
+        JSONObject jsonOutput = new JSONObject();
+
+        if (!searchResults.isEmpty()) {
+            for (Map.Entry<Integer, Person> entry : searchResults.entrySet()) {
+                jsonOutput.put(entry.getKey(), entry.getValue().getFullName());
+            }
+        } else {
+            jsonOutput.put("personSearch", "No Results Found");
+        }
+
+        return jsonOutput;
     }
 }
