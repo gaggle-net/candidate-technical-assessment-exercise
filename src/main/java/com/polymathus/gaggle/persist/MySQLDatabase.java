@@ -1,10 +1,11 @@
 package com.polymathus.gaggle.persist;
 
+import org.apache.log4j.Level;
+
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class MySQLDatabase implements Database {
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(MySQLDatabase.class);
 
     private static Connection connection = null;            //connection pool better?
 
@@ -14,17 +15,17 @@ public class MySQLDatabase implements Database {
 
     /**
      * Get a connection to the data source.
+     *
      * @return a Connection for the data source.
      */
-    public Connection getConnection(){
+    public Connection getConnection() {
 
-        if (connection == null){
+        if (connection == null) {
             try {
                 connection = DriverManager.getConnection(DB_URL, DB_USER_NAME, DB_PASSWORD);
 
-            } catch (SQLException exception){
-                Logger logger = Logger.getLogger(MySQLDatabase.class.getName());
-                logger.log(Level.SEVERE, exception.getMessage(), exception);
+            } catch (SQLException exception) {
+                LOGGER.log(Level.ERROR, exception.getMessage(), exception);
             }
         }
 

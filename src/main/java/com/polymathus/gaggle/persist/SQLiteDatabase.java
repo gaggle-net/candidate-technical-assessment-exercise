@@ -1,10 +1,12 @@
 package com.polymathus.gaggle.persist;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class SQLiteDatabase implements Database {
+    private static final org.apache.log4j.Logger LOGGER = Logger.getLogger(SQLiteDatabase.class);
 
     Connection connection = null;
     private static final String TABLE_NAME = "person";
@@ -12,21 +14,21 @@ public class SQLiteDatabase implements Database {
     private static final String FULL_NAME_FIELDNAME = "full_name";          //replace all above with enum?
 
 
-    SQLiteDatabase(){
+    SQLiteDatabase() {
 
         // load the sqlite-JDBC driver using the current class loader
         try {
             Class.forName("org.sqlite.JDBC");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException exception) {
+            LOGGER.log(Level.ERROR, exception.getMessage());
         }
 
         try {
             // create a database connection
             connection = DriverManager.getConnection("jdbc:sqlite:gaggle-net.db");
 
-            System.out.println("creating a SQLiteDatabase");
-            System.out.println(connection.toString());
+            LOGGER.log(Level.TRACE, "creating a SQLiteDatabase");
+            LOGGER.log(Level.TRACE, connection.toString());
 
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
@@ -51,9 +53,9 @@ public class SQLiteDatabase implements Database {
 //            }
 
 
-        } catch(SQLException e) {
+        } catch (SQLException exception) {
             // if the error message is "out of memory", it probably means no database file is found
-            System.err.println(e.getMessage());
+            LOGGER.log(Level.ERROR, exception.getMessage());
         }
     }
 

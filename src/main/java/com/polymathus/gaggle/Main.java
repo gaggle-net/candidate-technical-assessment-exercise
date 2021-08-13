@@ -2,15 +2,19 @@ package com.polymathus.gaggle;
 
 import com.polymathus.gaggle.service.PersonSearch;
 import com.polymathus.gaggle.service.Search;
+import org.apache.log4j.Level;
+import org.apache.log4j.PropertyConfigurator;
 import org.json.simple.JSONObject;
 
 import java.util.Scanner;
+import org.apache.log4j.Logger;
 
 /**
  *
  */
 public class Main {
 
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
     public static void main(String[] args) {
 
 //        System.out.println("Welcome to Your Search !");
@@ -29,6 +33,6 @@ public class Main {
         Search personSearchService = new PersonSearch();
         JSONObject output = personSearchService.search(formInputJson);
 
-        System.out.println(output.toString());
+        LOGGER.log(Level.TRACE, "the final out output is:  "+output.toString());
     }
 }

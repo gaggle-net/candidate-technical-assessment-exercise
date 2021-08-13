@@ -1,15 +1,18 @@
 package com.polymathus.gaggle.domain;
 
+import org.apache.log4j.Logger;
+
 public class Person {
+    private static final Logger LOGGER = Logger.getLogger(Person.class);
 
     private String firstName = "";
     private String lastName = "";
     private String fullName = "";
 
     /**
-     *  Public Constructor
+     * Public Constructor
      */
-    public Person(){
+    public Person() {
 
     }
 
@@ -19,6 +22,7 @@ public class Person {
     public String getFirstName() {
         return firstName;
     }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -26,6 +30,7 @@ public class Person {
     public String getLastName() {
         return lastName;
     }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
@@ -33,6 +38,7 @@ public class Person {
     public String getFullName() {
         return fullName;
     }
+
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
