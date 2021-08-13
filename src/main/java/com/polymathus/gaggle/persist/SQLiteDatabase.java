@@ -13,8 +13,10 @@ public class SQLiteDatabase implements Database {
     private static final String PRIMARY_KEY_FIELDNAME = "person_id";
     private static final String FULL_NAME_FIELDNAME = "full_name";          //replace all above with enum?
 
-
-    SQLiteDatabase() {
+    /**
+     * Public Constructor
+     */
+    public SQLiteDatabase() {
 
         // load the sqlite-JDBC driver using the current class loader
         try {

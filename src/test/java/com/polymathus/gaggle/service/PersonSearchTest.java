@@ -1,5 +1,8 @@
 package com.polymathus.gaggle.service;
 
+import com.polymathus.gaggle.persist.Database;
+import com.polymathus.gaggle.persist.PersonDAO;
+import com.polymathus.gaggle.persist.SQLiteDatabase;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 
@@ -24,9 +27,12 @@ class PersonSearchTest {
             - what is returned on invalid inputs? or just no execute for now/first pass...
             - @todo: what does user input JSON look like? ie: what is key?
      */
+//    private static Database mySqlDatabase = new MySQLDatabase();
+    private static Database database = new SQLiteDatabase();
 
     @Test
     public void testOutputIsWellFormedJsonForFindByPrimaryKey() {
+        PersonDAO.setDatabase(database);
 
         JSONObject userSearchInput = new JSONObject();
         userSearchInput.put("personSearch", "700");
@@ -34,12 +40,13 @@ class PersonSearchTest {
         JSONObject expectedOutput = new JSONObject();
         expectedOutput.put("700","Bruce Wayne");
 
-        PersonSearch personeSearch = new PersonSearch();
-        assertEquals(expectedOutput.toJSONString(), (personeSearch.search(userSearchInput)).toJSONString());
+        Search personSearch = new PersonSearch();
+        assertEquals(expectedOutput.toJSONString(), (personSearch.search(userSearchInput)).toJSONString());
     }
 
     @Test
     public void testOutputIsWellFormedJsonForFindByName() {
+        PersonDAO.setDatabase(database);
 
         JSONObject userSearchInput = new JSONObject();
         userSearchInput.put("personSearch", "Bruce Wayne");
@@ -47,8 +54,8 @@ class PersonSearchTest {
         JSONObject expectedOutput = new JSONObject();
         expectedOutput.put("700","Bruce Wayne");
 
-        PersonSearch personeSearch = new PersonSearch();
-        assertEquals(expectedOutput.toJSONString(), (personeSearch.search(userSearchInput)).toJSONString());
+        Search personSearch = new PersonSearch();
+        assertEquals(expectedOutput.toJSONString(), (personSearch.search(userSearchInput)).toJSONString());
     }
 
     @Test
@@ -58,7 +65,7 @@ class PersonSearchTest {
         userSearchInput.put("personSearch", "");
 
         JSONObject expectedOutput = new JSONObject();
-        expectedOutput.put("000","Invalid Input Received");
+        expectedOutput.put("personSearch","Invalid Input Received");
 
         PersonSearch personeSearch = new PersonSearch();
         assertEquals(expectedOutput.toJSONString(), (personeSearch.search(userSearchInput)).toJSONString());
@@ -71,7 +78,7 @@ class PersonSearchTest {
         userSearchInput.put("personSearch", "!@%$#");
 
         JSONObject expectedOutput = new JSONObject();
-        expectedOutput.put("000","Invalid Input Received");
+        expectedOutput.put("personSearch","Invalid Input Received");
 
         PersonSearch personeSearch = new PersonSearch();
         assertEquals(expectedOutput.toJSONString(), (personeSearch.search(userSearchInput)).toJSONString());

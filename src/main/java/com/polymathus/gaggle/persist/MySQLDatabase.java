@@ -9,9 +9,16 @@ public class MySQLDatabase implements Database {
 
     private static Connection connection = null;            //connection pool better?
 
-    public static final String DB_URL = "jdbc:mysql://localhost:3306/gaggledev?allowPublicKeyRetrieval=true&useSSL=false";
-    public static final String DB_USER_NAME = "gaggle-dev";
-    public static final String DB_PASSWORD = "Gaggle2021!";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/gaggledev?allowPublicKeyRetrieval=true&useSSL=false";
+    private static final String DB_USER_NAME = "gaggle-dev";
+    private static final String DB_PASSWORD = "Gaggle2021!";
+
+    /**
+     * Public Constructor
+     */
+    public MySQLDatabase() {
+
+    }
 
     /**
      * Get a connection to the data source.

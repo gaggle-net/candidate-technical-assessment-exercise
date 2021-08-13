@@ -23,10 +23,11 @@ public class PersonDAO {
      */
 
 
-    private static final Database database = new SQLiteDatabase();
+//    private static final Database database = new SQLiteDatabase();              //this DAO is still 'database aware';  can I roll this up to the top too with some DI? just added database with her corresponding get/sets
 //    private static final Database database = new MySQLDatabase();
-    private static final Connection connection = database.getConnection();
-
+//    private static final Connection connection = database.getConnection();
+    private static Database database = null;
+    private static Connection connection = null;
 
     /**
      * Find a Person record by Primary Key.
@@ -38,6 +39,7 @@ public class PersonDAO {
 
         final Map<Integer, Person> persons = new HashMap<Integer, Person>();
         String query = prepareSearchByPrimaryKey(primaryKey);
+        LOGGER.log(Level.TRACE, "executing:    "+query);
 
         if (connection != null) {
             try {
@@ -71,6 +73,7 @@ public class PersonDAO {
 
         final Map<Integer, Person> persons = new HashMap<Integer, Person>();
         String query = prepareSearchByName(name);
+        LOGGER.log(Level.TRACE, "executing:    "+query);
 
         if (connection != null) {
             try {
@@ -179,6 +182,33 @@ public class PersonDAO {
 //        statement.append("REGEXP " + "'" + name + "'");       //@todo: drats, REGEXP isn't supported in SQLite...hmmm, how to refactor then for different statements..ideally stored procedures; out of scope for this exercise?....
 
         return statement.toString();
+    }
+
+
+
+
+
+
+//    public static Database getDatabase() {
+//        return database;
+//    }
+
+    /**
+     * Sets the database implementation into PersonDAO and then sets the Connection.
+     * @param database the database in which the data resides for searches of type Person.
+     */
+    public static void setDatabase(Database database) {
+        PersonDAO.database = database;
+
+        setConnection(database.getConnection());
+    }
+
+//    public static Connection getConnection() {
+//        return connection;
+//    }
+
+    private static void setConnection(Connection connection) {
+        PersonDAO.connection = connection;
     }
 
 }

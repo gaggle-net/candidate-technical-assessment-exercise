@@ -1,6 +1,10 @@
 package com.polymathus.gaggle.persist;
 
 import com.polymathus.gaggle.domain.Person;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
@@ -31,21 +35,28 @@ class PersonDAOTest {
             - and a Person with corresponding name above is returned in searches {leonardo, leo, D', etc.}
      */
 
+
+//    private static Database mySqlDatabase = new MySQLDatabase();
+    private static Database database = new SQLiteDatabase();
+
     @Test
-    public void testSQLiteDatabaseConnectionAlive() {
-        Database database = new SQLiteDatabase();
-        Connection connection = database.getConnection();
+    public void testDatabaseConnectionAlive() {
+        Connection connection = getDatabase().getConnection();
         assertNotNull(connection);
     }
 
+
+
     @Test
     public void testDataExistsInPersonTable() {
+        PersonDAO.setDatabase(database);
         List<Person> personResults = PersonDAO.findAll();
         assertNotEquals(0, personResults.size());
     }
 
     @Test
     public void testFindByPrimaryKey() {
+        PersonDAO.setDatabase(database);
         Map<Integer, Person> personResults = PersonDAO.findByPrimaryKey("700");
         Person personActual = personResults.get(new Integer("700"));
         assertEquals("Bruce Wayne", personActual.getFullName());
@@ -53,6 +64,7 @@ class PersonDAOTest {
 
     @Test
     public void testFindByNameWithFullName() {
+        PersonDAO.setDatabase(database);
         Map<Integer, Person> personResults = PersonDAO.findByName("Bruce Wayne");
         Person personActual = personResults.get(new Integer("700"));
         assertEquals("Bruce Wayne", personActual.getFullName());
@@ -60,6 +72,7 @@ class PersonDAOTest {
 
     @Test
     public void testFindByNameWithNameFragment() {
+        PersonDAO.setDatabase(database);
         Map<Integer, Person> personResults = PersonDAO.findByName("Bru");
         Person personActual = personResults.get(new Integer("700"));
         assertEquals("Bruce Wayne", personActual.getFullName());
@@ -67,6 +80,7 @@ class PersonDAOTest {
 
     @Test
     public void testFindByNameWithNameContainingAccents() {
+        PersonDAO.setDatabase(database);
         Map<Integer, Person> personResults = PersonDAO.findByName("Jòsé Cuervo");
         Person personActual = personResults.get(new Integer("1100"));
         assertEquals("Jòsé Cuervo", personActual.getFullName());        //@todo: interesting, this condition fails at runtime
@@ -78,4 +92,14 @@ class PersonDAOTest {
 //        Person personActual = personResults.get(new Integer("1000"));
 //        assertEquals("Leonardo D'Vinci", personActual.getFullName());
     }
+
+
+    public Database getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(Database database) {
+        this.database = database;
+    }
+
 }

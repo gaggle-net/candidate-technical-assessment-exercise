@@ -1,12 +1,9 @@
 package com.polymathus.gaggle;
 
-import com.polymathus.gaggle.service.PersonSearch;
-import com.polymathus.gaggle.service.Search;
+import com.polymathus.gaggle.service.SearchContainer;
 import org.apache.log4j.Level;
-import org.apache.log4j.PropertyConfigurator;
 import org.json.simple.JSONObject;
 
-import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 /**
@@ -27,12 +24,11 @@ public class Main {
 //        JSONObject formInputJson = new JSONObject();
 //        formInputJson.put("personSearch", userEntry);
 
-        JSONObject formInputJson = new JSONObject();
-        formInputJson.put("personSearch", "to");                           //@todo: all this is temporary till we craft the service
+        JSONObject input = new JSONObject();
+        input.put("personSearch", "700");                           //@todo: all this is temporary till we craft the service
 
-        Search personSearchService = new PersonSearch();
-        JSONObject output = personSearchService.search(formInputJson);
 
+        JSONObject output = SearchContainer.searchForPerson(input);
         LOGGER.log(Level.TRACE, "the final out output is:  "+output.toString());
     }
 }
