@@ -8,12 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>A Rather Boring & Basic Entry Form for a Search Service</title>
 </head>
 <body>
 <h1>Person Search Service</h1>
-<form action="search/personsearch/searchForPerson" method="GET">
-    <table style="with: 50%">
+<form action="SearchService/search/searchForPerson" method="GET">
+    <table>
         <tr>
             <td>For what is it that you seek?</td>
             <td><input type="text" name="searchCriteria" /></td>

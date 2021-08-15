@@ -8,9 +8,19 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
-@Path("/personsearch")
+/**
+ * Handles incoming requests for searches.
+ *
+ */
+@Path("/search")
 public class ApplicationResources {
 
+    /**
+     * Handles an incoming request during a Person Search.
+     *
+     * @param searchCriteria the URL Query param in the request
+     * @return a Response containing the search results.
+     */
     @GET
     @Path("/searchForPerson")
     public Response searchForPerson(@QueryParam("searchCriteria") String searchCriteria) {
@@ -20,7 +30,7 @@ public class ApplicationResources {
 
         JSONObject output = SearchContainer.searchForPerson(input);
 
-        return Response.status(Response.Status.OK).entity("Oi!  Your results are: "+output.toString()).build();
+        return Response.status(Response.Status.OK).entity("Your results are: "+output.toString()).build();  //add error handling
 
     }
 }

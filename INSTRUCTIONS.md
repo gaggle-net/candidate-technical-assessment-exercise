@@ -1,6 +1,4 @@
-
-
-##Instructions for Running the Person Search Service
+#Instructions for Running the Person Search Service
 
 ---
 
@@ -51,7 +49,7 @@ Enter your search criteria into the form field provided and click submit.
 (Or just hit < enter >).  Of course if you want to skip the form push some parameters via your own 
 URL directly, the format we're looking to conform to here is:
 
-    http://localhost:8080/search/personsearch/searchForPerson?searchCriteria=<param>
+    http://localhost:8080/SearchService/search/searchForPerson?searchCriteria=<param>
 
 You are ready to search!!
 
