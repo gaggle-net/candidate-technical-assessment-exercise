@@ -117,8 +117,6 @@ public class PersonDAO {
                     persons.add(person);
                 }
 
-                System.out.println("loaded up " + persons.size() + " people");
-
             } catch (SQLException exception) {
                 LOGGER.log(Level.ERROR, exception.getMessage(), exception);
             }

@@ -23,7 +23,7 @@ public class SQLiteDatabase implements Database {
         }
 
         try {
-            // create a database connection
+
             connection = DriverManager.getConnection("jdbc:sqlite:gaggle-net.db");
 
             LOGGER.log(Level.TRACE, "creating a SQLiteDatabase");
@@ -45,7 +45,6 @@ public class SQLiteDatabase implements Database {
 
 
         } catch (SQLException exception) {
-            // if the error message is "out of memory", it probably means no database file is found
             LOGGER.log(Level.ERROR, exception.getMessage());
         }
     }
