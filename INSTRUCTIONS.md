@@ -8,8 +8,10 @@
 This demo web service presents you with an index page containing a single input field.
 Upon clicking submit, the Search Service will perform a person search using the criteria that you entered in this field.
 
-If a number is entered, the service will search for any records with that number as its Primary Key.
-If text is entered, the service will search for any name (first or last) that matches--or partially matches--that text.
+If a number is entered, the service will search for and return a JSON formatted string for any records that have that number as its Primary Key.
+There should only be one, but the interface is built to return any and all matches, leaving the data integrity to be handled where it should be.
+
+If text is entered, the service will search for and return a JSON formatted string for any name (first or last) that matches--or partially matches--that text.
 
 
 ## Setting up the Service Demo
@@ -29,12 +31,29 @@ Once added, however, you would simply modify the dependency injections done in t
 
 **To set up the Search Service:**
 
-    instructions for setting up, should we need such detail...
+Fork this repository or download the .zip and extract it into your default IntelliJ workspace.
+This document assumes you have IntelliJ Idea and Maven installed.
+If you do not have Maven installed, you can [get started here](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html).
+If you do not have an IDE, I recommend [starting with IntelliJ](https://www.jetbrains.com/help/idea/getting-started.html).
+Once you've got your environment and project all set up, run:
 
-    more instructions for setting up, should we need such detail...
+    mvn clean install
 
-Include links to any downloads that may be necessary like this: [veri formamodo](http://secum.com/dentes) and include brief instructions if necessary.
+If all is well and you see a BUILD SUCCESS, then start the Jetty server with:
 
+    mvn jetty:run
+
+Once you see **"[INFO] Started Jetty Server"** then open your favorite browser and head to:
+
+    http://localhost:8080/
+
+Enter your search criteria into the form field provided and click submit.
+(Or just hit < enter >).  Of course if you want to skip the form push some parameters via your own 
+URL directly, the format we're looking to conform to here is:
+
+    http://localhost:8080/search/personsearch/searchForPerson?searchCriteria=<param>
+
+You are ready to search!!
 
 
 
@@ -43,7 +62,8 @@ Include links to any downloads that may be necessary like this: [veri formamodo]
 You may enter either a number, a name or a portion of a name, and then click the **submit** button.
 
 For best results, your entry should appear in the demo data below :).
-However, the service is built to return **"Invalid Input Received"** for most invalid inputs as wel as **"No Results Found"**" for any case where no records were found for a valid (validly formed) input. 
+However, the service is built to return **"Invalid Input Received"** for most invalid inputs as well 
+as **"No Results Found"**" for any case where no records were found for a valid (validly formed) input. 
 
 
 
