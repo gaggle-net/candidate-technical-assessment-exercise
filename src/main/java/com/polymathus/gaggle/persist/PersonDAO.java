@@ -18,14 +18,7 @@ public class PersonDAO {
     private static final String TABLE_NAME = "person";
     private static final String PRIMARY_KEY_FIELDNAME = "person_id";
     private static final String FULL_NAME_FIELDNAME = "full_name";
-    /*  replace all above with enum?
-        also, with this approach, DAO 'knows' about table need transport? getting  bloated... but better design
-     */
 
-
-//    private static final Database database = new SQLiteDatabase();              //this DAO is still 'database aware';  can I roll this up to the top too with some DI? just added database with her corresponding get/sets
-//    private static final Database database = new MySQLDatabase();
-//    private static final Connection connection = database.getConnection();
     private static Database database = null;
     private static Connection connection = null;
 
@@ -39,7 +32,7 @@ public class PersonDAO {
 
         final Map<Integer, Person> persons = new HashMap<Integer, Person>();
         String query = prepareSearchByPrimaryKey(primaryKey);
-        LOGGER.log(Level.TRACE, "executing:    "+query);
+        LOGGER.log(Level.TRACE, "executing:    " + query);
 
         if (connection != null) {
             try {
@@ -64,6 +57,7 @@ public class PersonDAO {
 
     /**
      * Find a Person record by name or name fragment.
+     * <p>
      * Note that more results can be returned as the input name fragment gets less specific.
      *
      * @param name the name--or portion of the name--of the person you seek.
@@ -73,7 +67,7 @@ public class PersonDAO {
 
         final Map<Integer, Person> persons = new HashMap<Integer, Person>();
         String query = prepareSearchByName(name);
-        LOGGER.log(Level.TRACE, "executing:    "+query);
+        LOGGER.log(Level.TRACE, "executing:    " + query);
 
         if (connection != null) {
             try {
@@ -142,8 +136,6 @@ public class PersonDAO {
      */
     private static StringBuilder getSelectAllSQL() {
 
-        LOGGER.log(Level.TRACE, "preparing base sQL");
-
         StringBuilder statement = new StringBuilder();
         statement.append("SELECT * ");
         statement.append("FROM " + TABLE_NAME + " ");
@@ -160,7 +152,6 @@ public class PersonDAO {
      */
     private static String prepareSearchByPrimaryKey(String primaryKey) {
 
-        LOGGER.log(Level.TRACE, "preparing search by PK in the DAO");
         StringBuilder statement = getSelectAllSQL();
         statement.append("WHERE " + PRIMARY_KEY_FIELDNAME + " = " + primaryKey);
 
@@ -186,15 +177,9 @@ public class PersonDAO {
 
 
 
-
-
-
-//    public static Database getDatabase() {
-//        return database;
-//    }
-
     /**
      * Sets the database implementation into PersonDAO and then sets the Connection.
+     *
      * @param database the database in which the data resides for searches of type Person.
      */
     public static void setDatabase(Database database) {
@@ -203,10 +188,11 @@ public class PersonDAO {
         setConnection(database.getConnection());
     }
 
-//    public static Connection getConnection() {
-//        return connection;
-//    }
-
+    /**
+     * Sets the Connection on the database that this PersonDAO has.
+     *
+     * @param connection the Connection to set.
+     */
     private static void setConnection(Connection connection) {
         PersonDAO.connection = connection;
     }
