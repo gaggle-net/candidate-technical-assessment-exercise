@@ -9,11 +9,14 @@ This demo web service presents you with an index page containing a single input 
 Upon clicking submit, the Search Service will perform a person search using the criteria that you entered in this field.
 
 If a number is entered, the service will search for any records with that number as its Primary Key.
-If text is entered, the service will search for any name that matches or partially matches that text.
+If text is entered, the service will search for any name (first or last) that matches--or partially matches--that text.
 
 
 ## Setting up the Service Demo
-The demo was created with love using the IntelliJ IDE with a Maven project build structure.
+The demo was created with love using the IntelliJ IDE and a Maven project build structure (see **pom.xml** for specific dependencies, of course).
+Development was done using **Java SDK version 16.0.2**.
+
+
 Out of the box, it uses an embedded MSQLite database and Jetty server.
 The demo data is created and inserted into the demo table when the concrete implementation of the database is established.
 As of version 1.0, there is not yet a way to add your own test data (other than modifying the code).
