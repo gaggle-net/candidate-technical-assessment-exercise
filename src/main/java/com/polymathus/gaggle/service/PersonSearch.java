@@ -17,9 +17,9 @@ public class PersonSearch implements Search {
     private static final Logger LOGGER = Logger.getLogger(PersonSearch.class);
 
     private static final String REGEX_PATTERN_IS_DIGITS = "^\\d+$";
-    private static final String REGEX_PATTERN_IS_LETTERS_AND_SPACES = "^[a-zA-Z\\s]*$";                                 //letters or spaces
-    private static final String REGEX_PATTERN_IS_VALID_NAME = "^[a-zA-Z\\s'-]+$";                                       //letters, spaces, dashes, or single quotes
-//    private static final String REGEX_PATTERN_IS_VALID_NAME = "^[^\\s][a-zA-Z'-]+([\\s][a-zA-Z'-]+)?$";                 //letters, dashes, or single quotes separated by single spaces only (this is getting too complicated to do here(?)
+//    private static final String REGEX_PATTERN_IS_VALID_NAME = "^[a-zA-Z\\s]*$";                                         //letters or spaces
+//    private static final String REGEX_PATTERN_IS_VALID_NAME = "^[a-zA-Z\\s'-]+$";                                       //letters, spaces, dashes, or single quotes
+    private static final String REGEX_PATTERN_IS_VALID_NAME = "^[^\\s][a-zA-Z'-]+([\\s][a-zA-Z'-]+)?$";                 //letters, dashes, or single quotes separated by single spaces only (this is getting too complicated to do here(?)
 
 
     //    private JSONObject searchCriteria = new JSONObject();
