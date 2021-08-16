@@ -94,9 +94,9 @@ Default Demo Data:
 ---
 
 
-## Assumptions, Concerns, Boundary Conditions, etc.
-< none entered >
-
-
+## Assumptions, Boundary Conditions, & Considerations
+- Developer chose to use `org.json.simple` but would consider refactoring to use `javax.json` if the data processing requirements were more complex, or if it needed to be scalable as such.
+- The `regex` in PersonSearch can still be made even more stringent, but with the sacrifice of readability; consider other more maintainable options here.
+- _Assumption:_  &nbsp; when a search results in multiple records, the expected behavior is to return all of them, not just the best fit or first match
 ---
 
