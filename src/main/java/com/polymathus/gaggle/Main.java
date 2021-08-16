@@ -6,12 +6,9 @@ import org.json.simple.JSONObject;
 
 import org.apache.log4j.Logger;
 
-/**
- *
- */
 public class Main {
-
     private static final Logger LOGGER = Logger.getLogger(Main.class);
+
     public static void main(String[] args) {
 
         /*
@@ -26,11 +23,12 @@ public class Main {
         formInputJson.put("personSearch", userEntry);
          */
 
+        /*
         JSONObject input = new JSONObject();
-        input.put("personSearch", "200");                           //@todo: all this is temporary till I craft the service endpoint
-
+        input.put("personSearch", "d'vinci");                           // all this is temporary till I craft the service endpoints --DONE!
 
         JSONObject output = SearchContainer.searchForPerson(input);
         LOGGER.log(Level.TRACE, "the final out output is:  "+output.toString());
+        */
     }
 }

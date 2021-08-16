@@ -15,7 +15,10 @@
 <form action="SearchService/search/searchForPerson" method="GET">
     <table>
         <tr>
-            <td>For what is it that you seek?</td>
+            <td colspan="2">You can search records by primary key, name or name fragment.</td>
+        </tr>
+        <tr>
+            <td>Enter your search criteria: </td>
             <td><input type="text" name="searchCriteria" /></td>
         </tr>
     </table>

@@ -1,11 +1,10 @@
----
 #Instructions for the Person Search Service
 
 ---
 
 ## Summary of Functionality
 This demo web service presents you with an index page containing a single input field.
-Upon clicking submit, the Search Service will perform a person search using the criteria that you entered in this field.
+Upon clicking submit, the Search Service will perform a person search using the criteria that you entered.
 
 If a number is entered, the service will search for and return a JSON formatted string for any records that have that number as its Primary Key.
 There should only be one, but the interface is built to return any and all matches, leaving the data integrity to be handled where it should be.
@@ -28,7 +27,8 @@ Once added, however, you would simply modify the dependency injections done in t
 
 
 
----
+<br>
+
 ###To set up the Search Service:
 
 ---
@@ -60,7 +60,7 @@ URL directly, the format we're looking to conform to here is:
 You are ready to search!!
 
 
-
+<br><br>
 
 ## Using the Interface
 You may enter either a number, a name or a portion of a name, and then click the **submit** button.
@@ -95,10 +95,7 @@ Default Demo Data:
 
 
 ## Assumptions, Concerns, Boundary Conditions, etc.
-Corripiunt fuit mortis, solum **stagnum**, tot nepos atria arbor: eras inermia
-poposcerat *indoluit*, cetera! Inter resolvo et zephyri quae animo quaerensque
-et regem stellantibus metuit Alcimedon superabat ferae praequestus quondam?
-Latura Terror, accensae, forte orbem armiferos mearum, nomina spargit lydia
+< none entered >
 
 
 ---
