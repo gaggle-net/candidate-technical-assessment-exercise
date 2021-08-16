@@ -1,4 +1,5 @@
-#Instructions for Running the Person Search Service
+---
+#Instructions for the Person Search Service
 
 ---
 
@@ -27,13 +28,18 @@ Once added, however, you would simply modify the dependency injections done in t
 
 
 
-**To set up the Search Service:**
+---
+###To set up the Search Service:
+
+---
+
+
 
 Fork this repository or download the .zip and extract it into your default IntelliJ workspace.
 This document assumes you have IntelliJ Idea and Maven installed.
 If you do not have Maven installed, you can [get started here](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html).
 If you do not have an IDE, I recommend [starting with IntelliJ](https://www.jetbrains.com/help/idea/getting-started.html).
-Once you've got your environment and project all set up, run:
+Then, once you've got your environment and project all set up, simply run:
 
     mvn clean install
 
