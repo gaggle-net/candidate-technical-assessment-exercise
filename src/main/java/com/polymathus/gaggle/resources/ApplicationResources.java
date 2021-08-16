@@ -25,12 +25,19 @@ public class ApplicationResources {
     @Path("/searchForPerson")
     public Response searchForPerson(@QueryParam("searchCriteria") String searchCriteria) {
 
+        /* true implementation has JSON for both input and output, initializing would look like this:
+        JSONObject input = new JSONObject(jsonInputString);
+         */
+
+        /* for the demo we will grab the name value pair from the query string and create the JSONObject */
         JSONObject input = new JSONObject();
         input.put("personSearch", searchCriteria);
+        /* end: for demo */
 
         JSONObject output = SearchContainer.searchForPerson(input);
 
-        return Response.status(Response.Status.OK).entity("Your results are: "+output.toString()).build();  //add error handling
-
+        return Response.status(Response.Status.OK)
+                .entity("Your input was: "+input.toJSONString()+"<br> Your results are: "+output.toJSONString())
+                .build();
     }
 }
