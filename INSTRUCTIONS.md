@@ -1,6 +1,8 @@
 #Instructions for the Person Search Service
 
+
 ---
+
 
 ## Summary of Functionality
 This demo web service presents you with an index page containing a single input field.
@@ -31,10 +33,8 @@ Once added, however, you would simply modify the dependency injections done in t
 
 ###To set up the Search Service:
 
+
 ---
-
-
-
 Fork this repository or download the .zip and extract it into your default IntelliJ workspace.
 This document assumes you have IntelliJ Idea and Maven installed.
 If you do not have Maven installed, you can [get started here](https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html).
@@ -67,7 +67,7 @@ You may enter either a number, a name or a portion of a name, and then click the
 
 For best results, your entry should appear in the demo data below :).
 However, the service is built to return **"Invalid Input Received"** for most invalid inputs as well 
-as **"No Results Found"**" for any case where no records were found for a valid (validly formed) input. 
+as **"No Results Found"** for any case where no records were found for a valid (validly formed) input. 
 
 
 
