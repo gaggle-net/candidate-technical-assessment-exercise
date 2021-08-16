@@ -17,8 +17,10 @@ public class PersonSearch implements Search {
     private static final Logger LOGGER = Logger.getLogger(PersonSearch.class);
 
     private static final String REGEX_PATTERN_IS_DIGITS = "^\\d+$";
-    private static final String REGEX_PATTERN_IS_LETTERS_AND_SPACES = "^[a-zA-Z\\s]*$";     //letters or spaces
-    private static final String REGEX_PATTERN_IS_VALID_NAME = "^[a-zA-Z\\s'-]+$";           //letters, spaces, dashes, or single quotes
+    private static final String REGEX_PATTERN_IS_LETTERS_AND_SPACES = "^[a-zA-Z\\s]*$";                                 //letters or spaces
+    private static final String REGEX_PATTERN_IS_VALID_NAME = "^[a-zA-Z\\s'-]+$";                                       //letters, spaces, dashes, or single quotes
+//    private static final String REGEX_PATTERN_IS_VALID_NAME = "^[^\\s][a-zA-Z'-]+([\\s][a-zA-Z'-]+)?$";                 //letters, dashes, or single quotes separated by single spaces only (this is getting too complicated to do here(?)
+
 
     //    private JSONObject searchCriteria = new JSONObject();
     private JSONObject searchResults = new JSONObject();
@@ -33,14 +35,14 @@ public class PersonSearch implements Search {
     @Override
     public JSONObject search(JSONObject searchCriteria) {
 
-        String userInput = searchCriteria.get("personSearch").toString();           //gawd this is awful...make it better
-        LOGGER.log(Level.TRACE, "yo! performing search! Going to look for ----> " + userInput);
+        String userInput = searchCriteria.get("personSearch").toString();
+        LOGGER.log(Level.TRACE, "performing search! Going to look for ----> " + userInput);
 
         if (!userInput.isEmpty() && userInput.matches(REGEX_PATTERN_IS_DIGITS)) {
             Map<Integer, Person> searchResults = PersonDAO.findByPrimaryKey(userInput);
             setSearchResults(convertResultsToJson(searchResults));
 
-        } else if (!userInput.isEmpty() && userInput.matches(REGEX_PATTERN_IS_VALID_NAME)) {
+        } else if (!userInput.isEmpty() && userInput.matches(REGEX_PATTERN_IS_VALID_NAME)) {        //can still make this better (ie: submitting " " still executes searchByName() and returns no results.  can use ...VALID_NAME = "^[^\\s][a-zA-Z'-]+([\\s][a-zA-Z'-]+)?$"; but...
             Map<Integer, Person> searchResults = PersonDAO.findByName(userInput);
             setSearchResults(convertResultsToJson(searchResults));
 
