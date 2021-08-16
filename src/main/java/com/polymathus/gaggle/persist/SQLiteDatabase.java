@@ -40,9 +40,8 @@ public class SQLiteDatabase implements Database {
             statement.executeUpdate("insert into person values(700, 'Bruce', 'Wayne', 'Bruce Wayne')");
             statement.executeUpdate("insert into person values(800, 'Thomas', 'Newman', 'Thomas Newman')");
             statement.executeUpdate("insert into person values(900, 'Isambard', 'Brunel', 'Isambard Brunel')");
-//            statement.executeUpdate("insert into person values(1000, 'Leonardo', 'D'Vinci', 'Leonardo D'Vinci')");
+            statement.executeUpdate("insert into person values(1000, 'Leonardo', 'D''Vinci', 'Leonardo D''Vinci')");
             statement.executeUpdate("insert into person values(1100, 'Jòsé', 'Cuervo', 'Jòsé Cuervo')");
-
 
         } catch (SQLException exception) {
             LOGGER.log(Level.ERROR, exception.getMessage());

@@ -17,7 +17,8 @@ public class PersonSearch implements Search {
     private static final Logger LOGGER = Logger.getLogger(PersonSearch.class);
 
     private static final String REGEX_PATTERN_IS_DIGITS = "^\\d+$";
-    private static final String REGEX_PATTERN_IS_LETTERS_AND_SPACES = "^[a-zA-Z\\s]*$";     //need better regex to support our pals Jòsé (Cuervo) and Leo (D'Vinci) ; starting to look like this wants to be an enum :)
+    private static final String REGEX_PATTERN_IS_LETTERS_AND_SPACES = "^[a-zA-Z\\s]*$";     //letters or spaces
+    private static final String REGEX_PATTERN_IS_VALID_NAME = "^[a-zA-Z\\s'-]+$";           //letters, spaces, dashes, or single quotes
 
     //    private JSONObject searchCriteria = new JSONObject();
     private JSONObject searchResults = new JSONObject();
@@ -39,7 +40,7 @@ public class PersonSearch implements Search {
             Map<Integer, Person> searchResults = PersonDAO.findByPrimaryKey(userInput);
             setSearchResults(convertResultsToJson(searchResults));
 
-        } else if (!userInput.isEmpty() && userInput.matches(REGEX_PATTERN_IS_LETTERS_AND_SPACES)) {
+        } else if (!userInput.isEmpty() && userInput.matches(REGEX_PATTERN_IS_VALID_NAME)) {
             Map<Integer, Person> searchResults = PersonDAO.findByName(userInput);
             setSearchResults(convertResultsToJson(searchResults));
 

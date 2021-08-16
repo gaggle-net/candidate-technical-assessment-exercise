@@ -77,21 +77,10 @@ Default Demo Data:
         700        Bruce         Wayne          Bruce Wayne
         800        Thomas        Newman         Thomas Newman
         900        Isambard      Brunel         Isambard Brunel
-        *1000       Leonardo      D'Vinci        Leonardo D'Vinci
+        1000       Leonardo      D'Vinci        Leonardo D'Vinci
         1100       Jòsé          Cuervo         Jòsé Cuervo
-
-    Note: as of release version 1.0, record at id 1000 is not included.
     -------------------------------------------------------------------
 
-
-    statement.executeUpdate("create table person (person_id integer, first_name string, last_name string, full_name string)");
-    statement.executeUpdate("insert into person values(200, 'Tommy', 'Schaeffer', 'Tommy Schaeffer')");
-    statement.executeUpdate("insert into person values(400, 'Thomas', 'Schaeffer', 'Thomas Schaeffer, Sr.')");
-    statement.executeUpdate("insert into person values(700, 'Bruce', 'Wayne', 'Bruce Wayne')");
-    statement.executeUpdate("insert into person values(800, 'Thomas', 'Newman', 'Thomas Newman')");
-    statement.executeUpdate("insert into person values(900, 'Isambard', 'Brunel', 'Isambard Brunel')");
-    //statement.executeUpdate("insert into person values(1000, 'Leonardo', 'D'Vinci', 'Leonardo D'Vinci')");
-    statement.executeUpdate("insert into person values(1100, 'Jòsé', 'Cuervo', 'Jòsé Cuervo')");
 
 
 

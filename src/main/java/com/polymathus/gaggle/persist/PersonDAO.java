@@ -165,6 +165,8 @@ public class PersonDAO {
      */
     private static String prepareSearchByName(String name) {
 
+        name = name.replace("'","''");
+
         StringBuilder statement = getSelectAllSQL();
         statement.append("WHERE " + FULL_NAME_FIELDNAME + " ");
         statement.append("LIKE " + "'%" + name + "%'");
