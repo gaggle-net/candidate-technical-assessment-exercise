@@ -43,11 +43,17 @@ Then, once you've got your environment and project all set up, simply run:
 
     mvn clean install
 
-If all is well and you see a BUILD SUCCESS, then start the Jetty server with:
+This will build your dependency tree, run all the unit tests, package up and deploy the project to the Jetty server. 
+If you want to run the tests alone, you can also do so with the command:
+
+    mvn clean test
+
+
+Once you run the `mvn clean install` and see a BUILD SUCCESS, then you are ready to start the Jetty server with:
 
     mvn jetty:run
 
-Once you see **"[INFO] Started Jetty Server"** then open your favorite browser and head to:
+Finally, you should see **"[INFO] Started Jetty Server"** in the console.  Now just open your favorite browser and head to:
 
     http://localhost:8080/
 
