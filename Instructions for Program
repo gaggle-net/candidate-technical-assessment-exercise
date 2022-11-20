@@ -1,0 +1,28 @@
+The program was made on the IDE Eclipse. 
+
+There is an embedded JSON file with people that have an ID and name in JSON format.
+
+You will find a package name "exercise" in the src folder.
+
+In the package there are three classes: ReadJSONFile. returnData. returnDataTest.
+
+ReadJSONFile: In this class, the JSON file is read and parsed. 
+This class also takes in user input. 0 is to exit the program. 1 to use the program to search for a person.
+If the user enters 1, the user will be prompted to either enter a name or ID of the person to search for.
+This will implement the next class: returnData. 
+
+returnData: In this class, user input will be cleaned and compared to data in the JSON file. If they match, it will
+rturn the JSON Object. The user will be asked if they would like to continue or exit.
+
+Finally, the last class is the returnDataTest. You will find 24 tests that have been passed by the program. 
+Of the 24 test cases, they can be chunked into a couple of cateogories:
+
+Testing the search for each person by....
+1. Name
+2. ID
+3. Name with white space and weird casing
+4. ID with white space
+5. Without their full name
+6. Non-existing names
+7. Non-existing ID
+
