@@ -17,7 +17,7 @@ class returnDataTest {
 	void test() throws IOException, ParseException, org.json.simple.parser.ParseException {
 		
 	
-	// initialize parser
+		// initialize parser
 		JSONParser jsonparser = new JSONParser();
 		
 		// load JSON file
