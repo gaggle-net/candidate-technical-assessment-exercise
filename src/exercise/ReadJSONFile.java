@@ -40,14 +40,18 @@ public class ReadJSONFile {
 		// extract array
 		JSONArray array = (JSONArray)info.get("People");
 		
+		// take user input
+		Scanner input = new Scanner(System.in);
+		
 		// while askAgain returns true, continuing searching data
-		while (askAgain() == true) {
+		while (askAgain(input) == true) {
 			
-			personIdOrName(array);
+			personIdOrName(input, array);
 		}
 		
 		// when askAgain returns false, exit the program
 		System.out.println("Thank you, goodbye.");
+		input.close();
 	}
 
 	/**
@@ -57,11 +61,11 @@ public class ReadJSONFile {
 	 * Doesn't allow for any other input.
 	 * @return true if user wants to search, false if exit.
 	 */
-	public static boolean askAgain() {
+	public static boolean askAgain(Scanner input2) {
 		
 		// prints the user a message
 		// scans in
-		Scanner input = new Scanner(System.in);
+		//Scanner input = new Scanner(System.in);
 		
 		// sets the number
 		int number = 0;
@@ -73,14 +77,14 @@ public class ReadJSONFile {
 			System.out.println("Please enter 0 to exit or 1 to search: ");
 			
 			// prevent an invalid input
-			while (!input.hasNextInt()) {
+			while (!input2.hasNextInt()) {
 				System.out.println("");
 				System.out.println("Please enter 0 to exit or 1 to search: ");
-				input.next();
+				input2.next();
 			}
 			
 			// set the number
-			number = input.nextInt();
+			number = input2.nextInt();
 			
 			// if the number is outside the range, loop again
 			if (number < 0 || number > 1) {
@@ -109,17 +113,17 @@ public class ReadJSONFile {
 	 * @param num
 	 * @param array
 	 */
-	public static void personIdOrName (JSONArray array) {
+	public static void personIdOrName (Scanner input3, JSONArray array) {
 		
 
 		// prints the user a message
 		System.out.println("Please enter the ID or name to search: ");
 		
 		// takes a string input
-		Scanner input = new Scanner(System.in);
+		//Scanner input = new Scanner(System.in);
 		
 		// stores the input in a string variable
-		String search = input.next();
+		String search = input3.next();
 		
 		
 		// call the obtainIdOrName method in DataReturn class
